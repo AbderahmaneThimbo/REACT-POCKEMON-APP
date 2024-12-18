@@ -3,7 +3,7 @@ import Pokemon from "../models/pokemon";
 import "./pokemon-card.css";
 import formaDate from "../helpers/format-date";
 import formatType from "../helpers/format-type";
-
+import { useNavigate } from 'react-router-dom';
 type Props = {
   pokemon: Pokemon;
   borderColor?: string;
@@ -20,10 +20,15 @@ const PokemonCard: FunctionComponent<Props> = ({
   const hidBorder = () => {
     setColor("#f5f5f5");
   };
+  const navigate = useNavigate();
+
+  const goToPokemon = (id: number) => {
+    navigate(`/pokemons/${id}`);
+  }
 
   return (
     <div
-      className="col s6 m4"
+      className="col s6 m4" onClick={goToPokemon.bind(this, pokemon.id)}
       onMouseEnter={showBorder}
       onMouseLeave={hidBorder}
     >
@@ -41,12 +46,6 @@ const PokemonCard: FunctionComponent<Props> = ({
                 {formaDate(pokemon.created)}
               </small>
             </p>
-
-            {/* <p>
-              <small>
-                {pokemon.created.toString()}
-              </small>
-            </p> */}
             {pokemon.types.map(type =>
               <span key={type} className={formatType(type)}>
                 {type}
