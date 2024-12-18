@@ -1,33 +1,36 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Pokemon from "../models/pokemon";
-import POKEMONS from "../models/mock-pokemon";
 import formatDate from "../helpers/format-date";
 import formatType from "../helpers/format-type";
+import PokemonService from "../services/pokemon-service";
 
+type Params = { id: string };
 const PokemonsDetail: FunctionComponent = () => {
   const { id } = useParams<{ id: string }>();
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
-  useEffect(
-    () => {
-      POKEMONS.forEach(pokemon => {
-        if (id === pokemon.id.toString()) {
-          setPokemon(pokemon);
-        }
+  useEffect(() => {
+    if (id) {
+      PokemonService.getPokemon(+id).then((pokemon) => {
+        setPokemon(pokemon);
       });
-    },
-    [id]
-  );
+    }
+  }, [id]);
+
+  const navigate = useNavigate();
+  const deletePokemon = () => {
+    if (pokemon) {
+      PokemonService.deletePokemon(pokemon).then(() => navigate("/pokemons"));
+    }
+  };
 
   return (
     <div>
-      {pokemon
-        ? <div className="row">
+      {pokemon ? (
+        <div className="row">
           <div className="col s12 m8 offset-m2">
-            <h2 className="header center">
-              {pokemon.name}
-            </h2>
+            <h2 className="header center">{pokemon.name}</h2>
             <div className="card hoverable">
               <div className="card-image">
                 <img
@@ -36,10 +39,17 @@ const PokemonsDetail: FunctionComponent = () => {
                   style={{ width: "250px", margin: "0 auto" }}
                 />
               </div>
-              <div className="card-action">
-                <Link to={`/pokemons/edit/${pokemon.id}`} ><button className="waves-effect waves-light btn btn-floating">
-                  <i className="material-icons">edit</i>
-                </button></Link>
+              <div className="card-action flex justify-between items-center">
+                <Link to={`/pokemons/edit/${pokemon.id}`}>
+                  <button className="waves-effect waves-light btn btn-floating">
+                    <i className="material-icons">edit</i>
+                  </button>
+                </Link>
+                <span className="btn-floating halfway-fab waves-effect waves-light red">
+                  <i className="material-icons" onClick={deletePokemon}>
+                    delete
+                  </i>
+                </span>
               </div>
               <div className="card-stacked">
                 <div className="card-content">
@@ -48,42 +58,34 @@ const PokemonsDetail: FunctionComponent = () => {
                       <tr>
                         <td>Nom</td>
                         <td>
-                          <strong>
-                            {pokemon.name}
-                          </strong>
+                          <strong>{pokemon.name}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Points de vie</td>
                         <td>
-                          <strong>
-                            {pokemon.hp}
-                          </strong>
+                          <strong>{pokemon.hp}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Dégâts</td>
                         <td>
-                          <strong>
-                            {pokemon.cp}
-                          </strong>
+                          <strong>{pokemon.cp}</strong>
                         </td>
                       </tr>
                       <tr>
                         <td>Types</td>
                         <td>
-                          {pokemon.types.map(type =>
+                          {pokemon.types.map((type) => (
                             <span key={type} className={formatType(type)}>
                               {type}
                             </span>
-                          )}
+                          ))}
                         </td>
                       </tr>
                       <tr>
                         <td>Date de création</td>
-                        <td>
-                          {formatDate(pokemon.created)}
-                        </td>
+                        <td>{formatDate(pokemon.created)}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -95,7 +97,9 @@ const PokemonsDetail: FunctionComponent = () => {
             </div>
           </div>
         </div>
-        : <h4 className="center">Aucun pokémon à afficher !</h4>}
+      ) : (
+        <h4 className="center">Aucun pokémon à afficher !</h4>
+      )}
     </div>
   );
 };

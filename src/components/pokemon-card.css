@@ -3,3 +3,8 @@
   height: 200px;
   /* box-shadow: inset; */
 }
+.card-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
