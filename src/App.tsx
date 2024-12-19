@@ -5,6 +5,8 @@ import PokemonsDetail from "./pages/pokemon-detail";
 import PokemonEdit from "./pages/pokemon-edit";
 import PageNotFound from "./pages/page-not-found";
 import PokemonAdd from "./pages/pokemon-add";
+import Login from "./pages/login";
+import PrivateRoute from "./PrivateRoute";
 
 const App: FunctionComponent = () => {
   return (
@@ -12,16 +14,30 @@ const App: FunctionComponent = () => {
       <div>
         <nav>
           <div className="nav-wrapper teal">
-            <Link to="/" className="brand-logo center">Pokedex</Link>
+            <Link to="/" className="brand-logo center">
+              Pokedex
+            </Link>
           </div>
         </nav>
         <Routes>
-
-          <Route path="/" element={<PokemonList />} />
-          <Route path="/pokemons" element={<PokemonList />} />
-          <Route path="/pokemons/:id" element={<PokemonsDetail />} />
-          <Route path="/pokemons/edit/:id" element={<PokemonEdit />} />
-          <Route path="/pokemons/add" element={<PokemonAdd />} />
+          <Route path="/" element={<PrivateRoute element={PokemonList} />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/pokemons"
+            element={<PrivateRoute element={PokemonList} />}
+          />
+          <Route
+            path="/pokemons/:id"
+            element={<PrivateRoute element={PokemonsDetail} />}
+          />
+          <Route
+            path="/pokemons/edit/:id"
+            element={<PrivateRoute element={PokemonEdit} />}
+          />
+          <Route
+            path="/pokemons/add"
+            element={<PrivateRoute element={PokemonAdd} />}
+          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>

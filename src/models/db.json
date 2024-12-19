@@ -19,17 +19,8 @@
       "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/016.png",
       "types": [
         "Normal",
-        "Vol"
-      ]
-    },
-    {
-      "id": "6",
-      "name": "Rattata",
-      "hp": 18,
-      "cp": 6,
-      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/019.png",
-      "types": [
-        "Normal"
+        "Vol",
+        "Plante"
       ]
     },
     {
@@ -80,6 +71,51 @@
       "cp": 8,
       "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/037.png",
       "types": [
+        "Feu"
+      ]
+    },
+    {
+      "id": "1734606833033",
+      "hp": "10",
+      "cp": "1",
+      "name": "nkkk",
+      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/150.png",
+      "types": [
+        "Normal",
+        "Plante"
+      ]
+    },
+    {
+      "id": "1734607341070",
+      "hp": 100,
+      "cp": 10,
+      "name": "abou",
+      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/021.png",
+      "types": [
+        "Normal"
+      ]
+    },
+    {
+      "id": 1734620164728,
+      "hp": 100,
+      "cp": 10,
+      "name": "KQQQ",
+      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/111.png",
+      "types": [
+        "Normal",
+        "Feu",
+        "Plante"
+      ]
+    },
+    {
+      "id": 1734621906085,
+      "hp": "10",
+      "cp": 10,
+      "name": "Aichetou",
+      "picture": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/345.png",
+      "types": [
+        "Normal",
+        "Plante",
         "Feu"
       ]
     }
