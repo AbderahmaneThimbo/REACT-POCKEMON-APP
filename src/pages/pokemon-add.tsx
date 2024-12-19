@@ -1,29 +1,20 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import PokemonForm from "../components/pokemon-form";
 import Pokemon from "../models/pokemon";
-// import POKEMONS from '../models/mock-pokemon';
 import PokemonService from "../services/pokemon-service";
 
 type Params = { id: string };
 
-const PokemonEdit: FunctionComponent = () => {
-  const { id } = useParams<Params>();
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-
-  useEffect(() => {
-    if (id) {
-      PokemonService.getPokemon(+id).then((pokemon) => {
-        setPokemon(pokemon);
-      });
-    }
-  }, [id]);
+const PokemonAdd: FunctionComponent = () => {
+  const [id] = useState<number>(new Date().getTime());
+  const [pokemon,] = useState<Pokemon | null>(null);
 
   return (
     <div>
       {pokemon ? (
         <div className="row">
-          <h2 className="header center">Éditer {pokemon.name}</h2>
+          <h2 className="header center">Ajouter un pokemon {pokemon.name}</h2>
           <PokemonForm pokemon={pokemon}></PokemonForm>
         </div>
       ) : (
@@ -33,4 +24,4 @@ const PokemonEdit: FunctionComponent = () => {
   );
 };
 
-export default PokemonEdit;
+export default PokemonAdd;

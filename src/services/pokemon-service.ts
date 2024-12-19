@@ -24,7 +24,8 @@ export default class PokemonService {
       .catch((error) => this.handaleError(error));
   }
 
-  static createPokemon(pokemon: Pokemon): Promise<Pokemon> {
+  static addPokemon(pokemon: Pokemon): Promise<Pokemon> {
+    delete (pokemon as { created?: Date }).created;
     return fetch(`http://localhost:3001/pokemons`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
